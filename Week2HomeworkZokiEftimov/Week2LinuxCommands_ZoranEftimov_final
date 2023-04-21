@@ -1,0 +1,17 @@
+1.	Enter cd (What directory you are in and what command did you use to find out?) – right now I am in the home directory of the ubuntu Linux instance /home/ubuntu, to find out the directory I am in, I used the command ‘pwd’ which stands for print working directory.
+2.	Enter cd .. (What directory are you in?) Now I am in the directory /home, and I checked again using ‘pwd’. 
+3.	Change to the /etc directory and show me the output of ls deb*? The output of ls deb* is debconf.conf  debian_version
+4.	Tell the command you used to find all files ending in conf? the command to find all files ending in conf is “find *.conf”
+5.	Pipe the output of the command in step 4 to another command to get a count how many files and tell me the commands you used and the count. The command I used is “find *.conf | wc -l” and the result is 28, so there are 28 files in /etc ending in .conf.
+6.	How many lines in the passwd file that have nologin in them?  What command did you use? There are 29 lines with nologin in them, I used the command grep "nologin" /etc/passwd | wc -l.
+7.	How many lines in the passwd file do not have nologin in them? What command did you use? There are 6 lines that do not have nologin in them, the command I used is grep -v "nologin" /etc/passwd | wc -l. 
+8.	Change to your home directory and create test1 directory.  What command did you use? To change directory I used cd /home, then once I am in the home directory I used sudo mkdir test1 or mkdirtest1 if I am logged as root. 
+9.	Create the file test1/file1.  What command did you use? To create a file named file1 and located inside test1, I used the command sudo touch test1/file1 or the same command without sudo if I am logged as root.
+10.	Remove the test1 directory with 1 command.  What command did you use? The command I used is sudo rm -r test1 and it removed both the file and the directory. 
+11.	What is the command to get help on the 'ls' command? To get help on the ls command, we can use ls –-help. 
+12.	What is the command to see the history of what you typed in the shell? The command is ‘history’, and we can even add grep “search ‘term’” to search for specific term from the history.
+13.	What command would only display the change directory commands in history – history | grep “cd”. 
+14.	What is different between ls and ls -a, and ls -l commands. Ls lists all the contents of a directory, from the current directory, but only the names of the files and nothing else. Ls – a lists all of the files in the current directory including hidden files and directories that are not normally displayed. Ls – l lists the contents of a directory in long format, which gives more information about each file, such as file size, permissions, ownership, creation date, modification date. 
+15.	How long has your machine been running?  What command did you use to find this out? I had my machine running all day, I was testing out lot of ways to SSH into my machine today and it has been running for 8 hours, I also turned the Windows instance off, so I am not charged since I am not using it. The command to find out how long the machine has been running is “uptime”, shows the load average, users connected and how long the machine is up. 
+
+
