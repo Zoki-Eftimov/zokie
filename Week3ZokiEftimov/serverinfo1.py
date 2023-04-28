@@ -11,11 +11,16 @@
 # Zoki 04 - 27 - 23: initial version v.01
 
 # Import subprocess module, which provides a way to spawn new processes, and obtain thir return code (lets us integrate external programs into Python code).
+import os
 import subprocess
 
-# Define function get_output that takes a command as an argument and returns the output of that command to a string
+# Define function get_output that takes a command as input and executes it using the subprocess.run method with stdout and stderr; the standard output is returned as string while handling errors.
 def get_output(command):
-    return subprocess.check_output(command, shell=True, text=True).strip()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    stdout, stderr = process.communicate()
+    if stderr:
+        raise Exception(f"Command {command} failed with error:\n{stderr.decode()}")
+    return stdout.decode().strip()
 
 # Defines the main function as the entry point of the script (then sets variable that will call the get_output function with the command as argument, and assigns the output to the variable)
 def main():
