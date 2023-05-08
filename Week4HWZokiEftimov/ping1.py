@@ -5,7 +5,7 @@
 #SEC444 - Automation/Configuration & Management
 #5-7-2023
 
-# Description
+# Description - this script reads data from pingfile.txt and pings each one of the IP or DNS, outputs the time to ping  in ms.
 
 # Versioning
 # Zoki: initial version v.01
