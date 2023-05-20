@@ -15,12 +15,12 @@ import csv
 
 # This is function that searches the mail.log file for anything that has <> and .nsd.org, and then matches with IP address. The function returns the extracted server_name and IP address as a tuple.
 def get_server_info(line):
-    server_regex = r'<([^>]+)@?([^@>]+)?'
-    server_regex_2 = r'(\S+\.nsd\.org)\b'
-    ip_regex = r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
-    server_match = re.search(server_regex, line)
-    server_match_2 = re.search(server_regex_2, line)
-    ip_match = re.search(ip_regex, line)
+    server_IP = r'<([^>]+)@?([^@>]+)?'
+    server_IP_2 = r'(\S+\.nsd\.org)\b'
+    ip_add = r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
+    server_match = re.search(server_IP, line)
+    server_match_2 = re.search(server_IP_2, line)
+    ip_match = re.search(ip_add, line)
 # if server match is successful the variable server_name is updated with the matched server_name from the group
     server_name = None
     if server_match:
@@ -68,7 +68,6 @@ def main():
         print("\nServers.csv has been generated.")
     else:
         print("Content not found!")
-
 
 # Run main() if script called directly, else use as a library to be imported
 if __name__ == "__main__":
