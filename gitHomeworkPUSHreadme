@@ -1,0 +1,4 @@
+git add [name of the file]
+git commit -m "[put your text for the description here]"
+git push
+
