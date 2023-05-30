@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+#Zoran Eftimov
+#prof. Ski Kacoroski
+#SEC444 - Automation/Configuration & Management
+#4-27-2023
+
+# Description
+
+# Versioning
+# Zoki: initial version
+
+# Set up initial variables and imports
+import sys
+ 
+# Main routine that is called when script is run
+def main():
+  """What does this function do"""
+
+# Get the messages and process them
+
+# Run main() if script called directly, else use as a library to be imported
+if __name__ == "__main__":
+        main()
