@@ -1,0 +1,13 @@
+---
+- name: Ping Linux and Windows servers
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Ping Linux machine
+      ping:
+      when: "'linux' in group_names"
+
+    - name: Ping Windows machine
+      win_ping:
+      when: "'windows' in group_names"
