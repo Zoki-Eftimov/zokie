@@ -1,0 +1,428 @@
+List the ansible version info:
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible --version
+ansible [core 2.15.0]
+  config file = /home/ubuntu/.ansible.cfg
+  configured module search path = ['/home/ubuntu/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/ubuntu/.local/lib/python3.10/site-packages/ansible
+  ansible collection location = /home/ubuntu/.ansible/collections:/usr/share/ansible/collections
+  executable location = /home/ubuntu/.local/bin/ansible
+  python version = 3.10.6 (main, Mar 10 2023, 10:55:28) [GCC 11.3.0] (/usr/bin/python3)
+  jinja version = 3.0.3
+  libyaml = True
+
+1. and 2.Print the OS and OS release of each HOST:------------>
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible all -m setup -a 'filter=ansible_distribution'
+linux1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "Ubuntu",
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false
+}
+windows1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_architecture": "64-bit",
+        "ansible_architecture2": "x86_64",
+        "ansible_bios_date": "08/24/2006",
+        "ansible_bios_version": "4.2.amazon",
+        "ansible_date_time": {
+            "date": "2023-06-10",
+            "day": "10",
+            "epoch": "1686386651.41024",
+            "epoch_int": 1686386651,
+            "epoch_local": "1686361451.41024",
+            "hour": "01",
+            "iso8601": "2023-06-10T08:44:11Z",
+            "iso8601_basic": "20230610T014411410236",
+            "iso8601_basic_short": "20230610T014411",
+            "iso8601_micro": "2023-06-10T08:44:11.410236Z",
+            "minute": "44",
+            "month": "06",
+            "second": "11",
+            "time": "01:44:11",
+            "tz": "Pacific Standard Time",
+            "tz_offset": "-07:00",
+            "weekday": "Saturday",
+            "weekday_number": "6",
+            "weeknumber": "23",
+            "year": "2023"
+        },
+        "ansible_distribution": "Microsoft Windows Server 2022 Datacenter",
+        "ansible_distribution_major_version": "10",
+        "ansible_distribution_version": "10.0.20348.0",
+        "ansible_domain": "",
+        "ansible_env": {
+            "ALLUSERSPROFILE": "C:\\ProgramData",
+            "APPDATA": "C:\\Users\\Administrator\\AppData\\Roaming",
+            "windir": "C:\\Windows"
+        },
+        "ansible_fqdn": "EC2AMAZ-79F24RL",
+        "ansible_hostname": "EC2AMAZ-79F24RL",
+        "ansible_interfaces": [
+            {
+                "connection_name": "Ethernet 2",
+                "default_gateway": "172.31.16.1",
+                "dns_domain": "ec2.internal",
+                "interface_index": 7,
+                "interface_name": "AWS PV Network Device #0",
+                "ipv4": {
+                    "address": "172.31.28.110",
+                    "prefix": "20"
+                },
+                "ipv6": {
+                    "address": "fe80::32fc:3e1f:dd5d:c970%7",
+                    "prefix": "64"
+                },
+                "macaddress": "0A:FC:7D:A1:A6:8F",
+                "mtu": 9001,
+                "speed": 1000
+            }
+        ],
+        "ansible_ip_addresses": [
+            "fe80::32fc:3e1f:dd5d:c970%7",
+            "172.31.28.110"
+        ],
+        "ansible_kernel": "10.0.20348.0",
+        "ansible_lastboot": "2023-06-09 18:04:55Z",
+        "ansible_machine_id": "S-1-5-21-229842916-3046697061-3785400062",
+        "ansible_memfree_mb": 2078,
+        "ansible_memtotal_mb": 4096,
+        "ansible_netbios_name": "EC2AMAZ-79F24RL",
+        "ansible_nodename": "EC2AMAZ-79F24RL",
+        "ansible_os_family": "Windows",
+        "ansible_os_installation_type": "Server",
+        "ansible_os_name": "Microsoft Windows Server 2022 Datacenter",
+        "ansible_os_product_type": "server",
+        "ansible_owner_contact": "",
+        "ansible_owner_name": "EC2",
+        "ansible_pagefilefree_mb": 549,
+        "ansible_pagefiletotal_mb": 704,
+        "ansible_powershell_version": 5,
+        "ansible_processor": [
+            "0",
+            "GenuineIntel",
+            "Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz",
+            "1",
+            "GenuineIntel",
+            "Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz"
+        ],
+        "ansible_processor_cores": 2,
+        "ansible_processor_count": 2,
+        "ansible_processor_threads_per_core": 1,
+        "ansible_processor_vcpus": 2,
+        "ansible_product_name": "HVM domU",
+        "ansible_product_serial": "ec24f1e8-ae6e-368f-5543-8c64ffc57b08",
+        "ansible_reboot_pending": true,
+        "ansible_swaptotal_mb": 0,
+        "ansible_system": "Win32NT",
+        "ansible_system_description": "",
+        "ansible_system_vendor": "Xen",
+        "ansible_uptime_seconds": 27558,
+        "ansible_user_dir": "C:\\Users\\Administrator",
+        "ansible_user_gecos": "",
+        "ansible_user_id": "Administrator",
+        "ansible_user_sid": "S-1-5-21-229842916-3046697061-3785400062-500",
+        "ansible_virtualization_role": "guest",
+        "ansible_virtualization_type": "xen",
+        "ansible_win_rm_certificate_expires": "2026-06-07 11:11:58",
+        "ansible_windows_domain": "WORKGROUP",
+        "ansible_windows_domain_member": false,
+        "ansible_windows_domain_role": "Stand-alone server",
+        "gather_subset": [
+            "all"
+        ],
+        "module_setup": true
+    },
+    "changed": false
+}
+3. printing the hosts file ipv4
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible all -i /home/ubuntu/ansible/hosts -m debug -a "var=ansible_host"
+linux1 | SUCCESS => {
+    "ansible_host": "34.230.229.73"
+}
+windows1 | SUCCESS => {
+    "ansible_host": "44.215.183.151"
+}
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible linux1 -i /home/ubuntu/ansible/hosts -m command -a "ls -l /"
+linux1 | CHANGED | rc=0 >>
+total 64
+lrwxrwxrwx   1 root root     7 May 15 19:08 bin -> usr/bin
+drwxr-xr-x   4 root root  4096 May 31 17:48 boot
+drwxr-xr-x  15 root root  3220 Jun  9 18:04 dev
+drwxr-xr-x 107 root root  4096 May 31 17:48 etc
+drwxr-xr-x   3 root root  4096 May 30 15:38 home
+lrwxrwxrwx   1 root root     7 May 15 19:08 lib -> usr/lib
+lrwxrwxrwx   1 root root     9 May 15 19:08 lib32 -> usr/lib32
+lrwxrwxrwx   1 root root     9 May 15 19:08 lib64 -> usr/lib64
+lrwxrwxrwx   1 root root    10 May 15 19:08 libx32 -> usr/libx32
+drwx------   2 root root 16384 May 15 19:10 lost+found
+drwxr-xr-x   2 root root  4096 May 15 19:08 media
+drwxr-xr-x   2 root root  4096 May 15 19:08 mnt
+drwxr-xr-x   2 root root  4096 May 15 19:08 opt
+dr-xr-xr-x 179 root root     0 Jun  9 18:04 proc
+drwx------   7 root root  4096 Jun  9 16:41 root
+drwxr-xr-x  29 root root   920 Jun 10 01:56 run
+lrwxrwxrwx   1 root root     8 May 15 19:08 sbin -> usr/sbin
+drwxr-xr-x   8 root root  4096 May 15 19:14 snap
+drwxr-xr-x   2 root root  4096 May 15 19:08 srv
+dr-xr-xr-x  13 root root     0 Jun  9 18:04 sys
+drwxrwxrwt  13 root root  4096 Jun 10 01:56 tmp
+drwxr-xr-x  14 root root  4096 May 15 19:08 usr
+drwxr-xr-x  14 root root  4096 May 30 02:00 var
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible all -i /home/ubuntu/ansible/hosts -m command -a "df -h"
+linux1 | CHANGED | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        16G  4.0G   12G  26% /
+tmpfs           987M  152K  986M   1% /dev/shm
+tmpfs           395M  876K  394M   1% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/xvda15     105M  6.1M   99M   6% /boot/efi
+tmpfs           198M  4.0K  198M   1% /run/user/1000
+tmpfs           198M  4.0K  198M   1% /run/user/0
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible windows1 -i /home/ubuntu/ansible/hosts -m win_shell -a "Get-ChildItem -Path C:\ -Force | Select-Object Name, Length, LastWriteTime"
+windows1 | CHANGED | rc=0 >>
+
+Name                      Length    LastWriteTime
+----                      ------    -------------
+$Recycle.Bin                        4/16/2023 1:44:43 AM
+$WinREAgent                         4/11/2023 9:23:00 PM
+Boot                                4/11/2023 9:33:33 PM
+Config.Msi                          4/16/2023 2:11:36 AM
+Documents and Settings              8/18/2021 4:34:55 PM
+EFI                                 8/18/2021 11:24:49 PM
+PerfLogs                            5/8/2021 1:20:24 AM
+Program Files                       4/16/2023 2:12:08 AM
+Program Files (x86)                 4/16/2023 1:48:19 AM
+ProgramData                         4/16/2023 1:54:13 AM
+Recovery                            4/16/2023 12:20:07 AM
+System Volume Information           4/16/2023 1:33:33 AM
+Users                               4/16/2023 12:21:23 AM
+Windows                             4/16/2023 2:13:52 AM
+bootmgr                   437842    4/11/2023 9:28:46 PM
+BOOTNXT                   1         5/8/2021 1:14:33 AM
+DumpStack.log.tmp         12288     6/9/2023 6:05:02 PM
+pagefile.sys              738197504 6/9/2023 6:05:02 PM
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible windows1 -i /home/ubuntu/ansible/hosts -m win_shell -a "tasklist"
+windows1 | CHANGED | rc=0 >>
+
+Image Name                     PID Session Name        Session#    Mem Usage
+========================= ======== ================ =========== ============
+System Idle Process              0 Services                   0          8 K
+System                           4 Services                   0        140 K
+Registry                       100 Services                   0     67,348 K
+smss.exe                       444 Services                   0      1,264 K
+csrss.exe                      600 Services                   0      6,340 K
+csrss.exe                      672 Console                    1      5,848 K
+wininit.exe                    680 Services                   0      7,028 K
+winlogon.exe                   748 Console                    1     10,468 K
+services.exe                   812 Services                   0      9,308 K
+lsass.exe                      832 Services                   0     18,036 K
+svchost.exe                    940 Services                   0     23,164 K
+fontdrvhost.exe                964 Console                    1      3,488 K
+fontdrvhost.exe                972 Services                   0      3,596 K
+svchost.exe                    544 Services                   0     11,400 K
+svchost.exe                    904 Services                   0     10,916 K
+LogonUI.exe                   1048 Console                    1     44,596 K
+dwm.exe                       1056 Console                    1     43,176 K
+svchost.exe                   1080 Services                   0    113,744 K
+svchost.exe                   1156 Services                   0      9,860 K
+svchost.exe                   1172 Services                   0      5,464 K
+svchost.exe                   1208 Services                   0     12,032 K
+svchost.exe                   1340 Services                   0     17,768 K
+svchost.exe                   1388 Services                   0     13,000 K
+svchost.exe                   1396 Services                   0      7,512 K
+svchost.exe                   1408 Services                   0      7,740 K
+svchost.exe                   1420 Services                   0      7,912 K
+svchost.exe                   1440 Services                   0      5,924 K
+svchost.exe                   1516 Services                   0      7,696 K
+svchost.exe                   1524 Services                   0      6,236 K
+svchost.exe                   1616 Services                   0      8,248 K
+svchost.exe                   1672 Services                   0     11,276 K
+svchost.exe                   1688 Services                   0     15,220 K
+svchost.exe                   1744 Services                   0      9,072 K
+svchost.exe                   1752 Services                   0      8,796 K
+svchost.exe                   1768 Services                   0      9,520 K
+svchost.exe                   1824 Services                   0     12,628 K
+svchost.exe                   1896 Services                   0      7,024 K
+svchost.exe                   2020 Services                   0     16,348 K
+svchost.exe                   1328 Services                   0     10,128 K
+svchost.exe                   1492 Services                   0      7,336 K
+svchost.exe                   1512 Services                   0      6,868 K
+svchost.exe                   2064 Services                   0      7,968 K
+svchost.exe                   2136 Services                   0      7,164 K
+svchost.exe                   2268 Services                   0      8,500 K
+svchost.exe                   2432 Services                   0      9,148 K
+svchost.exe                   2488 Services                   0      8,236 K
+svchost.exe                   2496 Services                   0      7,376 K
+spoolsv.exe                   2584 Services                   0     24,740 K
+svchost.exe                   2664 Services                   0     18,996 K
+svchost.exe                   2680 Services                   0     14,388 K
+amazon-ssm-agent.exe          2696 Services                   0     16,504 K
+LiteAgent.exe                 2704 Services                   0      5,592 K
+svchost.exe                   2712 Services                   0     10,640 K
+svchost.exe                   2784 Services                   0     12,544 K
+svchost.exe                   2808 Services                   0      6,720 K
+svchost.exe                   2836 Services                   0      8,816 K
+svchost.exe                   2844 Services                   0      5,708 K
+svchost.exe                   2872 Services                   0     11,632 K
+MsMpEng.exe                   2892 Services                   0    218,124 K
+ssm-agent-worker.exe          3716 Services                   0     19,236 K
+conhost.exe                   3724 Services                   0     13,076 K
+NisSrv.exe                    4028 Services                   0     11,256 K
+csrss.exe                     4884 RDP-Tcp#0                  2      6,676 K
+winlogon.exe                  4932 RDP-Tcp#0                  2      9,680 K
+fontdrvhost.exe               4988 RDP-Tcp#0                  2     15,616 K
+WUDFHost.exe                  4996 Services                   0     54,204 K
+dwm.exe                       5036 RDP-Tcp#0                  2    108,288 K
+rdpclip.exe                   4412 RDP-Tcp#0                  2     12,408 K
+sihost.exe                    4392 RDP-Tcp#0                  2     26,492 K
+svchost.exe                   4492 RDP-Tcp#0                  2     15,304 K
+svchost.exe                   4516 RDP-Tcp#0                  2     25,952 K
+taskhostw.exe                 4548 RDP-Tcp#0                  2     12,496 K
+svchost.exe                   4748 Services                   0     14,924 K
+svchost.exe                   4792 Services                   0      7,440 K
+ctfmon.exe                    4828 RDP-Tcp#0                  2     20,428 K
+svchost.exe                    824 Services                   0      8,408 K
+svchost.exe                   1244 Services                   0     13,212 K
+explorer.exe                  3248 RDP-Tcp#0                  2    207,736 K
+TextInputHost.exe             5208 RDP-Tcp#0                  2     43,532 K
+StartMenuExperienceHost.e     5216 RDP-Tcp#0                  2     62,920 K
+RuntimeBroker.exe             5332 RDP-Tcp#0                  2     20,328 K
+SearchApp.exe                 5464 RDP-Tcp#0                  2    177,408 K
+RuntimeBroker.exe             5580 RDP-Tcp#0                  2     37,216 K
+RuntimeBroker.exe             5716 RDP-Tcp#0                  2     13,816 K
+svchost.exe                   2508 RDP-Tcp#0                  2     16,368 K
+dllhost.exe                   5936 RDP-Tcp#0                  2     12,848 K
+cmd.exe                       3816 RDP-Tcp#0                  2      4,128 K
+conhost.exe                   5828 RDP-Tcp#0                  2     23,552 K
+svchost.exe                   6024 Services                   0     17,388 K
+msdtc.exe                     2236 Services                   0     10,868 K
+svchost.exe                   4432 Services                   0     11,236 K
+svchost.exe                    956 Services                   0     15,500 K
+svchost.exe                   2060 Services                   0     13,628 K
+svchost.exe                   3000 Services                   0     11,616 K
+pwsh.exe                      4788 RDP-Tcp#0                  2    130,020 K
+conhost.exe                   2792 RDP-Tcp#0                  2     22,940 K
+wordpad.exe                   4468 RDP-Tcp#0                  2     53,768 K
+svchost.exe                   5116 RDP-Tcp#0                  2     11,276 K
+svchost.exe                   2328 Services                   0      6,132 K
+powershell.exe                5348 RDP-Tcp#0                  2    190,692 K
+conhost.exe                   4960 RDP-Tcp#0                  2     23,312 K
+pwsh.exe                       536 RDP-Tcp#0                  2    148,616 K
+conhost.exe                   1928 RDP-Tcp#0                  2     21,468 K
+svchost.exe                   3696 Services                   0      5,928 K
+svchost.exe                    128 Services                   0     14,064 K
+WmiPrvSE.exe                  3556 Services                   0     15,208 K
+winrshost.exe                 5536 Services                   0      6,480 K
+conhost.exe                   2688 Services                   0     14,340 K
+cmd.exe                       5352 Services                   0      4,076 K
+powershell.exe                4292 Services                   0     50,056 K
+powershell.exe                5248 Services                   0    100,964 K
+powershell.exe                5912 Services                   0     61,996 K
+tasklist.exe                  2040 Services                   0      8,736 K
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible linux1 -i /home/ubuntu/ansible/hosts -m file -a "path=/TEST state=directory"
+linux1 | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": true,
+    "gid": 0,
+    "group": "root",
+    "mode": "0755",
+    "owner": "root",
+    "path": "/TEST",
+    "size": 4096,
+    "state": "directory",
+    "uid": 0
+}
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible windows1 -i /home/ubuntu/ansible/hosts -m win_file -a "path=C:\\TEST state=directory"
+windows1 | CHANGED => {
+    "changed": true
+}
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible linux1 -i /home/ubuntu/ansible/hosts -m stat -a "path=/TEST"
+linux1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "stat": {
+        "atime": 1686387716.9772985,
+        "attr_flags": "e",
+        "attributes": [
+            "extents"
+        ],
+        "block_size": 4096,
+        "blocks": 8,
+        "charset": "binary",
+        "ctime": 1686387716.9772985,
+        "dev": 51713,
+        "device_type": 0,
+        "executable": true,
+        "exists": true,
+        "gid": 0,
+        "gr_name": "root",
+        "inode": 1548289,
+        "isblk": false,
+        "ischr": false,
+        "isdir": true,
+        "isfifo": false,
+        "isgid": false,
+        "islnk": false,
+        "isreg": false,
+        "issock": false,
+        "isuid": false,
+        "mimetype": "inode/directory",
+        "mode": "0755",
+        "mtime": 1686387716.9772985,
+        "nlink": 2,
+        "path": "/TEST",
+        "pw_name": "root",
+        "readable": true,
+        "rgrp": true,
+        "roth": true,
+        "rusr": true,
+        "size": 4096,
+        "uid": 0,
+        "version": "3058511478",
+        "wgrp": false,
+        "woth": false,
+        "writeable": true,
+        "wusr": true,
+        "xgrp": true,
+        "xoth": true,
+        "xusr": true
+    }
+}
+
+ubuntu@ip-172-31-87-221:~/zokie/ansible$ ansible windows1 -i /home/ubuntu/ansible/hosts -m win_stat -a "path=C:\TEST"
+windows1 | SUCCESS => {
+    "changed": false,
+    "stat": {
+        "attributes": "Directory",
+        "creationtime": 1686387731.4615436,
+        "exists": true,
+        "filename": "TEST",
+        "hlnk_targets": [],
+        "isarchive": false,
+        "isdir": true,
+        "ishidden": false,
+        "isjunction": false,
+        "islnk": false,
+        "isreadonly": false,
+        "isreg": false,
+        "isshared": false,
+        "lastaccesstime": 1686387731.4615436,
+        "lastwritetime": 1686387731.4615436,
+        "nlink": 1,
+        "owner": "BUILTIN\\Administrators",
+        "path": "C:\\TEST",
+        "size": 0
+    }
+}
+
