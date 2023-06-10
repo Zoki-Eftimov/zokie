@@ -1,0 +1,51 @@
+---
+- name: Install and schedule cowsay
+  hosts: linux
+  gather_facts: false
+
+  tasks:
+    - name: Install cowsay package
+      apt:
+        name: cowsay
+        state: present
+
+    - name: Add cowsay to crontab
+      cron:
+        name: Run cowsay every 5 minutes
+        minute: "*/5"
+        job: "/usr/games/cowsay Hi There!"
+
+    - name: Verify cowsay execution
+      shell: cowsay Hi There!
+      register: cowsay_output
+      changed_when: false
+      failed_when: false
+
+    - name: Purge cowsay package
+      apt:
+        name: cowsay
+        state: absent
+
+    - name: Reinstall cowsay package
+      apt:
+        name: cowsay
+        state: present
+
+    - name: Verify cowsay execution after reinstall
+      shell: cowsay Hi There!
+      register: cowsay_output_after_reinstall
+      changed_when: false
+      failed_when: false
+
+- name: Print Ansible log
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Read Ansible log file
+      command: cat /home/ubuntu/ansible/ansible.log
+      register: ansible_log_output
+
+    - name: Print Ansible log
+      debug:
+        var: ansible_log_output.stdout_lines
