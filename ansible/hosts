@@ -1,0 +1,17 @@
+[linux]
+linux1 ansible_host=34.230.229.73
+
+[linux:vars]
+ansible_user=root
+
+[windows]
+windows1 ansible_host=44.215.183.151
+
+[windows:vars]
+ansible_user=administrator
+ansible_password=Passw0rd1
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+#[windows]
+#windows-machine ansible_host=172.31.28.110 ansible_user=Administrator ansible_password=YourPasswordHere ansible_connection=winrm ansible_winrm_transport=ntlm ansible_winrm_server_cert_validation=ignore

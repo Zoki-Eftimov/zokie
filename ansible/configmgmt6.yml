@@ -1,0 +1,49 @@
+- name: Check Files
+  hosts: linux
+  gather_facts: no
+
+  tasks:
+    - name: Calculate MD5 checksum of /etc/hosts file
+      command: md5sum /etc/hosts
+      register: md5_hosts
+
+    - name: Print error if checksum doesn't match
+      debug:
+        msg: "ERROR: Checksum for /etc/hosts file doesn't match!"
+      when: md5_hosts.stdout.split()[0] != '1463508f28edb4d6d5ae349b20e00409'
+
+    - name: Calculate MD5 checksum of /etc/group file
+      command: md5sum /etc/group
+      register: md5_group
+
+    - name: Print error if checksum doesn't match
+      debug:
+        msg: "ERROR: Checksum for /etc/group file doesn't match!"
+      when: md5_group.stdout.split()[0] != 'a32d2ce5c98f6262e11989e2ce141461'
+
+    - name: Calculate MD5 checksum of /etc/passwd file
+      command: md5sum /etc/passwd
+      register: md5_passwd
+
+    - name: Print error if checksum doesn't match
+      debug:
+        msg: "ERROR: Checksum for /etc/passwd file doesn't match!"
+      when: md5_passwd.stdout.split()[0] != 'd5e01e1a884cf82c56430e3f3e49e50b'
+
+    - name: Calculate MD5 checksum of /etc/ssh/sshd_config file
+      command: md5sum /etc/ssh/sshd_config
+      register: md5_sshd_config
+
+    - name: Print error if checksum doesn't match
+      debug:
+        msg: "ERROR: Checksum for /etc/ssh/sshd_config file doesn't match!"
+      when: md5_sshd_config.stdout.split()[0] != '23a8a2b1a8f1538be49eb86313367191'
+
+    - name: Calculate MD5 checksum of /etc/environment file
+      command: md5sum /etc/environment
+      register: md5_environment
+
+    - name: Print error if checksum doesn't match
+      debug:
+        msg: "ERROR: Checksum for /etc/environment file doesn't match!"
+      when: md5_environment.stdout.split()[0] != 'f3377ed52072acbbf4cbb59af03c7fdb'
