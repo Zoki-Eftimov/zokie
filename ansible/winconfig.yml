@@ -33,6 +33,7 @@
         path: C:\Shared
         user: Group1
         rights: FullControl
+        type: allow
         state: present
 
     - name: Share C:\Shared with Group1 Only
