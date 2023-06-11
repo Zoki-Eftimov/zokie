@@ -1,0 +1,62 @@
+---
+- name: Configure Windows Machine
+  hosts: windows
+  gather_facts: no
+  become: yes
+  become_method: runas
+  become_user: Administrator
+  tasks:
+    - name: Create User1
+      win_user:
+        name: User1
+        password: Password123
+        state: present
+
+    - name: Create Group1
+      win_group:
+        name: Group1
+        state: present
+
+    - name: Add User1 to Group1
+      win_group_membership:
+        name: Group1
+        members: User1
+        state: present
+
+    - name: Create Shared Directory
+      win_file:
+        path: C:\Shared
+        state: directory
+
+    - name: Give Group1 Full Access to Shared Directory
+      win_acl:
+        path: C:\Shared
+        user: Group1
+        type: allow
+        rights: FullControl
+        state: present
+
+    - name: Share C:\Shared with Group1 Only
+      win_share:
+        name: Shared
+        path: C:\Shared
+        description: Shared directory
+        permissions:
+          - Trustee: Group1
+            Access: FullControl
+        state: present
+
+    - name: Install OpenSSH Server
+      win_chocolatey:
+        name: openssh
+        state: present
+
+    - name: Start OpenSSH Server Service
+      win_service:
+        name: sshd
+        state: started
+        start_mode: auto
+    - name: Install Chocolatey
+      win_chocolatey:
+        name: chocolatey
+        state: present
